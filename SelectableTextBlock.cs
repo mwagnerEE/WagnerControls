@@ -229,7 +229,7 @@ namespace Wagner.Common.UI.Controls
 
             Point mouseUpPoint = e.GetPosition(this);
             this._endSelectPosition = this.GetPositionFromPoint(mouseUpPoint, true);
-            if (this._startSelectPosition == this._endSelectPosition)
+            if (this._startSelectPosition.CompareTo(this._endSelectPosition) == 0)
             {
                 this._startSelectPosition = null;
                 this._endSelectPosition = null;
