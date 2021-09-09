@@ -151,7 +151,7 @@ namespace Wagner.Common.UI.Controls
                 TextRange clearTextRange;
                 if (this._startSelectPosition.CompareTo(this._endSelectPosition) == this._endSelectPosition.CompareTo(newEndSelectPosition))
                 {
-                    newTextRange = new TextRange(this._startSelectPosition, this._endSelectPosition);
+                    newTextRange = new TextRange(this._startSelectPosition, this._endSelectPosition.GetPositionAtOffset(this._endSelectPosition.CompareTo(this._startSelectPosition)));
                     newTextRange.ApplyPropertyValue(TextElement.BackgroundProperty, SelectionHighlightBrush);
                 }
                 else
@@ -176,7 +176,6 @@ namespace Wagner.Common.UI.Controls
         /// </summary>
         private void RaiseOnTextSelected()
         {
-            this.Focus();
             if (OnTextSelected != null)
             {
                 TextSelectedEventArgs textSelectedEventArgs = new TextSelectedEventArgs(this._selectedTextRange);
@@ -255,7 +254,7 @@ namespace Wagner.Common.UI.Controls
             {
                 this._isSelecting = false;
             }
-            else if (this._isSelecting && endSelectPosition != this._endSelectPosition)
+            else if (this._isSelecting && (this._endSelectPosition == null || endSelectPosition.CompareTo(this._endSelectPosition) != 0))
             {
                 UpdateSelection(endSelectPosition);
             }
